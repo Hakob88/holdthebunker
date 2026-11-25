@@ -1,0 +1,7 @@
+theme: jekyll-theme-minimal
+title: Hold the Bunker
+description: Support and privacy policy for Hold the Bunker, a top-down arcade game for iPhone and iPad.
+
+# Keep the notes file off the website.
+exclude:
+  - README.md
