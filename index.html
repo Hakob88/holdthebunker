@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hold the Bunker – Support</title>
+  <meta name="description" content="Help and contact for Hold the Bunker, a top-down arcade game for iPhone and iPad.">
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <img src="icon.png" alt="Hold the Bunker app icon">
+    <h1>Hold the Bunker</h1>
+    <p class="tagline">Defend the command post. Top-down arcade action for iPhone and iPad.</p>
+    <span class="badge">Plays offline · No internet needed</span>
+    <p class="requires">Requires iOS 17 or later · iPhone and iPad</p>
+  </header>
+
+  <section class="slides" aria-roledescription="carousel" aria-label="Screenshots">
+    <div class="track" id="track">
+      <img src="screenshots/01_single.jpg" width="1440" height="662" alt="Hold the Bunker: 20 stages, one command post. Single-player battle.">
+      <img src="screenshots/02_versus.jpg" width="1440" height="662" alt="Play with a Friend: co-op or versus, each on your own iPhone or iPad." loading="lazy">
+      <img src="screenshots/03_coop.jpg" width="1440" height="662" alt="Defend Together: two soldiers, one bunker, a bigger enemy army." loading="lazy">
+      <img src="screenshots/04_soldiers.jpg" width="1440" height="662" alt="Choose Your Soldier: 10 soldiers, each with a perk and a drawback." loading="lazy">
+    </div>
+    <div class="dots" id="dots" role="tablist" aria-label="Choose a screenshot"></div>
+  </section>
+
+  <section class="card">
+    <h2>Contact</h2>
+    <p>Found a bug, stuck on a stage, or have an idea? Write to us and we'll get back to you.</p>
+    <p>It helps to mention your device (for example iPhone 16 or iPad Air) and its iOS version.</p>
+    <a class="button" href="mailto:holdthebunker@gmail.com?subject=Hold%20the%20Bunker">Contact</a>
+  </section>
+
+  <section class="card">
+    <h2>Questions</h2>
+
+    <h3>Which devices does it run on?</h3>
+    <p>iPhone and iPad with iOS 17 or later (iPadOS 17 or later).</p>
+
+    <h3>Do I need an internet connection?</h3>
+    <p>No. The whole game plays offline, with no account. Game Center achievements and leaderboards
+      are sent when you're online.</p>
+
+    <h3>How do I play with a friend?</h3>
+    <p>Each player uses their own iPhone or iPad with the game installed. Keep both devices on the
+      same Wi‑Fi network, or close to each other with Wi‑Fi turned on. One player opens <strong>Multiplayer → Host</strong>
+      and picks co-op or versus; the other opens <strong>Multiplayer → Join</strong> and chooses the game.</p>
+
+    <h3>My friend's game doesn't show up</h3>
+    <ul>
+      <li>Both devices need <strong>Local Network</strong> access for the game: Settings → Privacy &amp; Security → Local Network → Hold the Bunker.</li>
+      <li>Keep Wi‑Fi switched on for both devices. They can use the same Wi‑Fi network, or connect directly to each other when there's no network nearby.</li>
+      <li>Both players need the same version of the game; update from the App Store if one is older.</li>
+    </ul>
+
+    <h3>What happens if a player's app closes during a match?</h3>
+    <p>The game pauses for the other player. Open the app again within a minute and it rejoins the match.</p>
+
+    <h3>Where are achievements and leaderboards?</h3>
+    <p>They use Apple's Game Center. Sign in under Settings → Game Center. Anything you earn while
+      signed out or offline is sent the next time you're signed in.</p>
+
+    <h3>Is my progress saved?</h3>
+    <p>Yes, on your device: stars, unlocked soldiers and maps, and settings. Deleting the app also
+      deletes this progress.</p>
+
+    <h3>How do I control my soldier?</h3>
+    <p>Move with the pad on the left side of the screen and fire with the button on the right.</p>
+
+    <h3>Are there ads or in-app purchases?</h3>
+    <p>No.</p>
+  </section>
+
+  <footer>
+    <a href="privacy/index.html">Privacy Policy</a>
+    <p class="copyright">© 2026 Hold the Bunker. All rights reserved.</p>
+  </footer>
+</main>
+<script>
+// Screenshot carousel: swipe or tap a dot; it moves on by itself every few seconds, and holds
+// still for a while after you touch it (and entirely for people who prefer reduced motion).
+(function () {
+  var track = document.getElementById("track"), dots = document.getElementById("dots");
+  var slides = track.children, n = slides.length, current = 0, resumeAt = 0;
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  for (var i = 0; i < n; i++) {
+    var b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-label", "Screenshot " + (i + 1));
+    b.addEventListener("click", (function (k) { return function () { go(k); hold(); }; })(i));
+    dots.appendChild(b);
+  }
+  function go(k) {
+    current = (k + n) % n;
+    track.scrollTo({ left: slides[current].offsetLeft - track.offsetLeft, behavior: still ? "auto" : "smooth" });
+    mark();
+  }
+  function mark() {
+    for (var i = 0; i < n; i++) dots.children[i].setAttribute("aria-selected", i === current ? "true" : "false");
+  }
+  function hold() { resumeAt = Date.now() + 8000; }
+  // After a swipe, the slide it settled on becomes the current one.
+  var t;
+  function settled() { current = Math.round(track.scrollLeft / track.clientWidth); mark(); }
+  if ("onscrollend" in window) {
+    track.addEventListener("scrollend", settled);
+  } else {
+    track.addEventListener("scroll", function () { clearTimeout(t); t = setTimeout(settled, 250); }, { passive: true });
+  }
+  ["pointerdown", "touchstart", "wheel", "focusin"].forEach(function (e) { track.addEventListener(e, hold, { passive: true }); });
+  mark();
+  if (!still) setInterval(function () {
+    if (Date.now() >= resumeAt && !document.hidden) go(current + 1);
+  }, 4000);
+})();
+</script>
+</body>
+</html>

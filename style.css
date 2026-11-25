@@ -1,0 +1,76 @@
+/* Hold the Bunker support site: the game's beige, espresso and sage palette. */
+:root {
+  --bg: #d9c8b0;
+  --bg-light: #e3d3bc;
+  --panel: #f0e7d8;
+  --ink: #3e312a;
+  --dim: #7a6656;
+  --sage: #5f7d55;
+  --line: #c9b597;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2b2420;
+    --bg-light: #352c27;
+    --panel: #3a302a;
+    --ink: #f0e7d8;
+    --dim: #c4b29c;
+    --sage: #8fb07f;
+    --line: #4d4038;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 50% -10%, var(--bg-light), var(--bg) 60%) fixed, var(--bg);
+  color: var(--ink);
+  font: 17px/1.55 ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 720px; margin: 0 auto; padding: 48px 16px 64px; }
+header { text-align: center; margin-bottom: 36px; }
+header img { width: 128px; height: 128px; border-radius: 28px; box-shadow: 0 8px 24px rgba(62, 49, 42, .25); }
+h1 { font-size: 2.2rem; line-height: 1.15; margin: 20px 0 6px; font-weight: 800; letter-spacing: -.01em; }
+h2 { font-size: 1.3rem; margin: 0 0 12px; }
+h3 { font-size: 1.05rem; margin: 22px 0 4px; }
+p { margin: 0 0 12px; }
+.tagline { color: var(--dim); margin: 0; }
+.requires { color: var(--dim); font-size: .9rem; margin: 10px 0 0; }
+.badge {
+  display: inline-block; margin-top: 14px; padding: 6px 16px; border-radius: 999px;
+  background: var(--sage); color: #f0e7d8; font-weight: 600; font-size: .9rem;
+}
+.card {
+  background: var(--panel); border-radius: 22px; padding: 24px 24px 14px; margin-bottom: 22px;
+  box-shadow: 0 4px 0 var(--line);
+}
+.card h3:first-of-type { margin-top: 0; }
+a { color: var(--sage); font-weight: 600; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.button {
+  display: inline-block; background: var(--sage); color: #f0e7d8; text-decoration: none;
+  padding: 10px 22px; border-radius: 999px; margin: 2px 0 12px;
+}
+ul { margin: 0 0 12px; padding-left: 1.2em; }
+li { margin-bottom: 4px; }
+/* Screenshot carousel: a row of slides that snap into place; the script moves it on. */
+.slides { margin: 0 -16px 28px; }
+.track {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  border-radius: 22px; margin: 0 16px; box-shadow: 0 4px 0 var(--line);
+}
+.track::-webkit-scrollbar { display: none; }
+.track img {
+  flex: 0 0 100%; width: 100%; height: auto; display: block; scroll-snap-align: start;
+  aspect-ratio: 1440 / 662; object-fit: cover;
+}
+.dots { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+.dots button {
+  width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--line); transition: background .2s, transform .2s;
+}
+.dots button[aria-selected="true"] { background: var(--sage); transform: scale(1.25); }
+.dots button:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
+footer { text-align: center; color: var(--dim); font-size: .9rem; margin-top: 32px; }
+footer a { color: var(--dim); }
+.copyright { margin: 10px 0 0; font-size: .8rem; }
